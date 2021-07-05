@@ -1,0 +1,54 @@
+Update
+========================================================
+author: Richèl J.C. Bilderbeek
+date: 2021-07-15
+autosize: true
+
+[https://github.com/richelbilderbeek/igp_presentation_20210715](https://github.com/richelbilderbeek/igp_presentation_20210715) ![](CC-BY-NC-SA.png)
+
+Goal
+========================================================
+
+ * Update on state of affairs
+ * Receive feedback
+
+Introduction
+========================================================
+
+Associations are important, e.g. [example]
+
+Works well when:
+
+ * 1 SNP -> 1 phenotype, e.g PLINK
+ * More SNPs linearly determine a phenotype, e.g. SKAT
+
+Research question
+========================================================
+
+Can we find novel associations using machine learning?
+
+Problem
+========================================================
+
+An association that fails
+
+Methods
+========================================================
+
+ * Select an ML tool
+ * Learn ML tool
+ * Apply to NSPHS
+ * Count new associations
+
+Select an ML tool
+========================================================
+
+ * GCAE
+ * Kristiina Ausmees and Carl Nettelblad
+
+Learn ML tool
+========================================================
+
+ * Demo
+
+
