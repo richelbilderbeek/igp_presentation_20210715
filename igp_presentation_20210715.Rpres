@@ -6,6 +6,12 @@ autosize: true
 
 [https://github.com/richelbilderbeek/igp_presentation_20210715](https://github.com/richelbilderbeek/igp_presentation_20210715) ![](CC-BY-NC-SA.png)
 
+<style>
+.small-code pre code {
+  font-size: 1em;
+}
+</style>
+
 Goal
 ========================================================
 
@@ -15,7 +21,7 @@ Goal
 Introduction
 ========================================================
 
-Associations are important, e.g. [example]
+Quantitiave trait associations are important, e.g. [example]
 
 Works well when:
 
@@ -30,7 +36,219 @@ Can we find novel associations using machine learning?
 Problem
 ========================================================
 
-An association that fails
+Two associations that fail
+
+ * XOR
+ * 1-out-of-3
+
+Demo
+========================================================
+
+ * No association, `random_trait`
+ * An additive association, `additive_trait`
+ * XOR, `xor_trait`
+ * 1-of-3, `one_of_three_trait`
+
+***
+
+```{r}
+library(plinkr)
+set.seed(314)
+mafs <- 0.49
+n_individuals <- 1000
+```
+
+Random phenotype
+========================================================
+class: small-code
+
+```{r}
+snvs <- create_snvs(
+  n_individuals = 4
+)
+calc_random_phenotype <- function(snvs) {
+  stats::runif(nrow(snvs))
+}
+snvs$random <- calc_random_phenotype(snvs)
+```
+
+***
+
+```{r echo=FALSE}
+knitr::kable(snvs)
+```
+
+Random trait
+========================================================
+class: small-code
+
+```{r}
+random_trait <- create_custom_trait(
+  phenotype = "random",
+  mafs = 0.49,
+  n_snps = 1,
+  calc_phenotype_function =
+    calc_random_phenotype
+)
+random_data <- create_demo_assoc_qt_params(
+  traits = random_trait,
+  n_individuals = n_individuals
+)
+```
+
+***
+
+```{r echo=FALSE}
+knitr::kable(
+  cbind(
+    random_data$ped_table[, -seq(1, 6)],
+    random_data$phe_table[, 3]
+  )
+)
+```
+
+Additive phenotype
+========================================================
+class: small-code
+
+```{r}
+snvs <- create_snvs(
+  n_individuals = 4
+)
+calc_additive_phenotype <- function(snvs) {
+  (rowSums(snvs == "C") / 10.0) +
+    runif(nrow(snvs), min = 0.0, max = 0.01)
+}
+snvs$additive <- calc_additive_phenotype(snvs)
+```
+
+***
+
+```{r echo=FALSE}
+knitr::kable(snvs)
+```
+
+Additive trait
+========================================================
+class: small-code
+
+```{r}
+additive_trait <- create_custom_trait(
+  phenotype = "additive",
+  mafs = 0.49,
+  n_snps = 1,
+  calc_phenotype_function =
+    calc_additive_phenotype
+)
+additive_data <- create_demo_assoc_qt_params(
+  traits = additive_trait,
+  n_individuals = n_individuals
+)
+```
+
+***
+
+```{r echo=FALSE}
+knitr::kable(
+  cbind(
+    additive_data$ped_table[, -seq(1, 6)],
+    additive_data$phe_table[, 3]
+  )
+)
+```
+
+Exclusive-or phenotype
+========================================================
+class: small-code
+
+```{r}
+snvs <- create_snvs(
+  n_snps = 2,
+  n_individuals = 16
+)
+calc_xor_phenotype <- function(snvs) {
+  if (ncol(snvs) < 4) {
+    return(
+      rep(3.14, nrow(snvs))
+    )
+  }
+  0.1 * (snvs$snv_1a == snvs$snv_1b &
+    snvs$snv_1a != snvs$snv_2a &
+    snvs$snv_2a == snvs$snv_2b
+  )
+}
+snvs$xor <- calc_xor_phenotype(snvs)
+```
+
+***
+
+```{r echo=FALSE}
+knitr::kable(snvs)
+```
+
+Exclusive-or trait
+========================================================
+class: small-code
+
+```{r}
+xor_trait <- create_custom_trait(
+  phenotype = "xor",
+  mafs = 0.49,
+  n_snps = 2,
+  calc_phenotype_function =
+    calc_xor_phenotype
+)
+xor_data <- create_demo_assoc_qt_params(
+  traits = xor_trait,
+  n_individuals = n_individuals
+)
+```
+
+***
+
+```{r echo=FALSE}
+knitr::kable(
+  cbind(
+    xor_data$ped_table[, -seq(1, 6)],
+    xor_data$phe_table[, 3]
+  )
+)
+```
+
+Associations
+========================================================
+
+ * Random data
+ * Additive data
+ * Xor data
+
+Associations on random data
+========================================================
+
+```{r}
+knitr::kable(assoc_qt(random_data))
+```
+
+Associations on additive data
+========================================================
+
+```{r}
+knitr::kable(assoc_qt(additive_data))
+```
+
+Associations on xor data
+========================================================
+
+```{r}
+knitr::kable(assoc_qt(xor_data))
+```
+
+Research question again
+========================================================
+
+~~Can we find novel associations using machine learning?~~
+
+But maybe SKAT can do this?
 
 Methods
 ========================================================
