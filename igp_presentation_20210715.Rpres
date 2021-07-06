@@ -51,7 +51,7 @@ Demo
 
 ***
 
-```{r}
+```{r cache=TRUE}
 library(plinkr)
 set.seed(314)
 mafs <- 0.49
@@ -60,9 +60,18 @@ n_individuals <- 1000
 
 Random phenotype
 ========================================================
+
+A phenotype that is completely unrelated to the SNPs investigated
+
+***
+
+![https://upload.wikimedia.org/wikipedia/commons/6/6c/Hans_am_Tretbrett.jpg](Hans_am_Tretbrett.jpg)
+
+Random phenotype
+========================================================
 class: small-code
 
-```{r}
+```{r cache=TRUE}
 snvs <- create_snvs(
   n_individuals = 4
 )
@@ -72,17 +81,22 @@ calc_random_phenotype <- function(snvs) {
 snvs$random <- calc_random_phenotype(snvs)
 ```
 
-***
-
-```{r echo=FALSE}
+```{r eval=FALSE}
 knitr::kable(snvs)
 ```
+
+***
+
+```{r echo=FALSE,cache=TRUE}
+knitr::kable(snvs)
+```
+
 
 Random trait
 ========================================================
 class: small-code
 
-```{r}
+```{r cache=TRUE}
 random_trait <- create_custom_trait(
   phenotype = "random",
   mafs = 0.49,
@@ -96,9 +110,18 @@ random_data <- create_demo_assoc_qt_params(
 )
 ```
 
+```{r eval=FALSE}
+knitr::kable(
+  cbind(
+    random_data$ped_table[, -seq(1, 6)],
+    random_data$phe_table[, 3]
+  )
+)
+```
+
 ***
 
-```{r echo=FALSE}
+```{r echo=FALSE,cache=TRUE}
 knitr::kable(
   cbind(
     random_data$ped_table[, -seq(1, 6)],
@@ -109,9 +132,17 @@ knitr::kable(
 
 Additive phenotype
 ========================================================
+
+![https://doi.org/10.1016/j.ajhg.2015.01.001](vWFnoFooter.png)
+
+***
+
+Zhu, Zhihong, et al. "Dominance genetic variation contributes little to the missing heritability for human complex traits." The American Journal of Human Genetics 96.3 (2015): 377-385.
+Additive phenotype
+========================================================
 class: small-code
 
-```{r}
+```{r cache=TRUE}
 snvs <- create_snvs(
   n_individuals = 4
 )
@@ -122,9 +153,13 @@ calc_additive_phenotype <- function(snvs) {
 snvs$additive <- calc_additive_phenotype(snvs)
 ```
 
+```{r eval=FALSE}
+knitr::kable(snvs)
+```
+
 ***
 
-```{r echo=FALSE}
+```{r echo=FALSE,cache=TRUE}
 knitr::kable(snvs)
 ```
 
@@ -132,7 +167,7 @@ Additive trait
 ========================================================
 class: small-code
 
-```{r}
+```{r cache=TRUE}
 additive_trait <- create_custom_trait(
   phenotype = "additive",
   mafs = 0.49,
@@ -146,9 +181,18 @@ additive_data <- create_demo_assoc_qt_params(
 )
 ```
 
+```{r eval=FALSE}
+knitr::kable(
+  cbind(
+    additive_data$ped_table[, -seq(1, 6)],
+    additive_data$phe_table[, 3]
+  )
+)
+```
+
 ***
 
-```{r echo=FALSE}
+```{r echo=FALSE,cache=TRUE}
 knitr::kable(
   cbind(
     additive_data$ped_table[, -seq(1, 6)],
@@ -159,9 +203,19 @@ knitr::kable(
 
 Exclusive-or phenotype
 ========================================================
+
+![](xor1b.png)
+
+***
+
+Baron, Ronan, et al. "Elementary arithmetic operations by enzymes: A model for metabolic pathway based computing." Angewandte Chemie International Edition 45.10 (2006): 1572-1576.
+
+
+Exclusive-or phenotype
+========================================================
 class: small-code
 
-```{r}
+```{r cache=TRUE}
 snvs <- create_snvs(
   n_snps = 2,
   n_individuals = 16
@@ -180,9 +234,13 @@ calc_xor_phenotype <- function(snvs) {
 snvs$xor <- calc_xor_phenotype(snvs)
 ```
 
+```{r eval=FALSE}
+knitr::kable(snvs)
+```
+
 ***
 
-```{r echo=FALSE}
+```{r echo=FALSE,cache=TRUE}
 knitr::kable(snvs)
 ```
 
@@ -190,7 +248,7 @@ Exclusive-or trait
 ========================================================
 class: small-code
 
-```{r}
+```{r cache=TRUE}
 xor_trait <- create_custom_trait(
   phenotype = "xor",
   mafs = 0.49,
@@ -204,9 +262,18 @@ xor_data <- create_demo_assoc_qt_params(
 )
 ```
 
+```{r eval=FALSE}
+knitr::kable(
+  cbind(
+    xor_data$ped_table[, -seq(1, 6)],
+    xor_data$phe_table[, 3]
+  )
+)
+```
+
 ***
 
-```{r echo=FALSE}
+```{r echo=FALSE,cache=TRUE}
 knitr::kable(
   cbind(
     xor_data$ped_table[, -seq(1, 6)],
@@ -225,21 +292,21 @@ Associations
 Associations on random data
 ========================================================
 
-```{r}
+```{r cache=TRUE}
 knitr::kable(assoc_qt(random_data))
 ```
 
 Associations on additive data
 ========================================================
 
-```{r}
+```{r cache=TRUE}
 knitr::kable(assoc_qt(additive_data))
 ```
 
 Associations on xor data
 ========================================================
 
-```{r}
+```{r cache=TRUE}
 knitr::kable(assoc_qt(xor_data))
 ```
 
