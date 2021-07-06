@@ -15,13 +15,19 @@ autosize: true
 Goal
 ========================================================
 
- * Update on state of affairs
- * Receive feedback
+ * Share proof of concept results
+   * Spoiler: the encouraging results are rather contrived
+   * Could use ideas here
+ * Describe shiny new ML method, GCAE
+
+***
+
+![](gcae_example_architecture.png)
 
 Introduction
 ========================================================
 
-Quantitiave trait associations are important, e.g. [example]
+Quantitive trait associations, e.g. protein levels, are important.
 
 Works well when:
 
@@ -33,21 +39,21 @@ Research question
 
 Can we find novel associations using machine learning?
 
-Problem
+Novel == un(der)detected using existing methods
+
+***
+
+![](professor_oak.png)
+
+Finding novel associations
 ========================================================
 
-Two associations that fail
+Proof of concept:
 
+ * No association
+ * Additive association
  * XOR
- * 1-out-of-3
-
-Demo
-========================================================
-
- * No association, `random_trait`
- * An additive association, `additive_trait`
- * XOR, `xor_trait`
- * 1-of-3, `one_of_three_trait`
+ * EXP
 
 ***
 
@@ -130,6 +136,15 @@ knitr::kable(
 )
 ```
 
+Associations on random data
+========================================================
+
+```{r cache=TRUE}
+knitr::kable(assoc_qt(random_data))
+```
+
+No association is correctly detected.
+
 Additive phenotype
 ========================================================
 
@@ -200,6 +215,15 @@ knitr::kable(
   )
 )
 ```
+
+Associations on additive data
+========================================================
+
+```{r cache=TRUE}
+knitr::kable(assoc_qt(additive_data))
+```
+
+Additive associations are detected awesomely!
 
 Exclusive-or phenotype
 ========================================================
@@ -282,6 +306,89 @@ knitr::kable(
 )
 ```
 
+Associations on xor data
+========================================================
+
+```{r cache=TRUE}
+knitr::kable(assoc_qt(xor_data))
+```
+
+ * XOR cannot be detected
+ * Very artificial example
+
+Exponential phenotype
+========================================================
+
+Exponential
+
+Exponential phenotype
+========================================================
+class: small-code
+
+```{r cache=TRUE}
+snvs <- create_snvs(
+  n_snps = 3,
+  n_individuals = 16
+)
+calc_exp_phenotype <- function(snvs) {
+  as <- seq(1, ncol(snvs), by = 2)
+  bs <- as + 1
+  h <- snvs[, as] == snvs[, bs] & snvs[, as] == "C"
+  10 ^ rowSums(h)
+}
+snvs$exp <- calc_exp_phenotype(snvs)
+```
+
+```{r eval=FALSE}
+knitr::kable(snvs)
+```
+
+***
+
+```{r echo=FALSE,cache=TRUE}
+knitr::kable(snvs)
+```
+
+Exponential trait
+========================================================
+class: small-code
+
+```{r cache=TRUE}
+exp_trait <- create_custom_trait(
+  phenotype = "exp",
+  mafs = 0.49,
+  n_snps = 8,
+  calc_phenotype_function =
+    calc_exp_phenotype
+)
+exp_data <- create_demo_assoc_qt_params(
+  traits = exp_trait,
+  n_individuals = n_individuals
+)
+```
+
+```{r eval=FALSE}
+knitr::kable(
+  cbind(
+    exp_data$ped_table[, -seq(1, 18)],
+    exp_data$phe_table[, 3]
+  )
+)
+```
+
+***
+
+```{r echo=FALSE,cache=TRUE}
+knitr::kable(
+  cbind(
+    exp_data$ped_table[, -seq(1, 12)],
+    exp_data$phe_table[, 3]
+  )
+)
+```
+
+
+
 Associations
 ========================================================
 
@@ -289,25 +396,14 @@ Associations
  * Additive data
  * Xor data
 
-Associations on random data
+
+
+
+Associations on exp data
 ========================================================
 
 ```{r cache=TRUE}
-knitr::kable(assoc_qt(random_data))
-```
-
-Associations on additive data
-========================================================
-
-```{r cache=TRUE}
-knitr::kable(assoc_qt(additive_data))
-```
-
-Associations on xor data
-========================================================
-
-```{r cache=TRUE}
-knitr::kable(assoc_qt(xor_data))
+knitr::kable(assoc_qt(exp_data))
 ```
 
 Research question again
