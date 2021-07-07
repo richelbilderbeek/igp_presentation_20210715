@@ -12,13 +12,13 @@ autosize: true
 }
 </style>
 
-Goal
+Setup
 ========================================================
 
+ * Describe GCAE
  * Share proof of concept results
    * Spoiler: the encouraging results are rather contrived
    * Could use ideas here
- * Describe shiny new ML method, GCAE
 
 ***
 
@@ -45,6 +45,81 @@ Novel == un(der)detected using existing methods
 
 ![](professor_oak.png)
 
+GCAE
+========================================================
+
+![](gcae_example_architecture.png)
+
+Problem
+========================================================
+
+ * Dimensionality reduction
+ * PCA is linear, where data is complex
+ * Deep learning learn non-linear and complex features
+
+PCA is useful
+========================================================
+
+Lao, Oscar, et al. "Correlation between genetic and geographic structure in Europe." Current Biology 18.16 (2008): 1241-1248.
+
+***
+
+![Lao et al., 2008 figure 1](Lao_et_al_fig_1a_20.png)
+
+Potential to do better than PCA
+========================================================
+
+Ausmees, Kristiina and Nettelblad, Carl. "A deep learning framework for characterization of genotype data." bioRxiv (2020)
+
+***
+
+![Ausmees and Nettelblad, 2020 figure 3a](Ausmees_and_Nettelblad_fig3a_75.png)
+
+Do better than PCA using GCAE
+========================================================
+
+Ausmees, Kristiina and Nettelblad, Carl. "A deep learning framework for characterization of genotype data." bioRxiv (2020)
+
+***
+
+![Ausmees and Nettelblad, 2020 figure 3b](Ausmees_and_Nettelblad_fig3b_75.png)
+
+GCAE
+========================================================
+
+Character|Full         |What
+---------|-------------|------------------------------
+G        |Genomic      |Works on genomic data
+C        |Convolutional|Works on processed data
+A        |Auto         |Learns by itself
+E        |Encoder      |to efficiently encode the data
+
+***
+
+![](gcae_example_architecture.png)
+
+Type of analysis
+========================================================
+
+ * Prediction and association
+ * Quantitative and binary traits
+
+Research question
+========================================================
+
+Can we find novel associations using GCAE?
+
+Novel == un(der)detected using existing methods
+
+***
+
+![](professor_oak.png)
+
+State of GCAE now
+========================================================
+
+ * Does not yet allow a trait to be encoded along genotype
+
 Finding novel associations
 ========================================================
 
@@ -54,6 +129,7 @@ Proof of concept:
  * Additive association
  * XOR
  * EXP
+ * Your suggestion
 
 ***
 
@@ -268,7 +344,7 @@ knitr::kable(snvs)
 knitr::kable(snvs)
 ```
 
-Exclusive-or trait
+Exclusive-or (XOR) trait
 ========================================================
 class: small-code
 
@@ -306,7 +382,7 @@ knitr::kable(
 )
 ```
 
-Associations on xor data
+Associations on exclusive-or (XOR) data
 ========================================================
 
 ```{r cache=TRUE}
@@ -315,6 +391,15 @@ knitr::kable(assoc_qt(xor_data))
 
  * XOR cannot be detected
  * Very artificial example
+
+ML can do exclusive-or (XOR)
+========================================================
+
+![](gourle_xor_2_50.png)
+
+***
+
+![](hadrien.png)
 
 Exponential phenotype
 ========================================================
@@ -387,18 +472,6 @@ knitr::kable(
 )
 ```
 
-
-
-Associations
-========================================================
-
- * Random data
- * Additive data
- * Xor data
-
-
-
-
 Associations on exp data
 ========================================================
 
@@ -406,30 +479,29 @@ Associations on exp data
 knitr::kable(assoc_qt(exp_data))
 ```
 
-Research question again
+Features of examples
 ========================================================
 
-~~Can we find novel associations using machine learning?~~
+ * Pro: Clear, simple structure
+ * Con: Artificial, lacks complex structure
 
-But maybe SKAT can do this?
-
-Methods
+Your example
 ========================================================
 
- * Select an ML tool
- * Learn ML tool
- * Apply to NSPHS
- * Count new associations
+Could you come up with
 
-Select an ML tool
+ * a biologically (more) relevant example
+ * that fails now
+ * with a complex structure
+ * that would convince you of GCAE
+
+I'll be happy try it!
+
+Conclusion
 ========================================================
 
- * GCAE
- * Kristiina Ausmees and Carl Nettelblad
+ * GCAE appears promising, yet needs work
+ * Could use a more convincing proof of concept
 
-Learn ML tool
-========================================================
-
- * Demo
 
 
