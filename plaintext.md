@@ -37,7 +37,7 @@ Age (years)|Incidence
 70-80      | 2.3%
 80+        | 12%
 
- * Smoking
+ * Smoking 
 
 The first GWAS
 ========================================================
@@ -4644,3 +4644,4 @@ No significant results |Cannot publish|Can publish
 
  * [1] Gopalakrishna et al., 2021, Prevalence of questionable research practices, research misconduct and their potential explanatory factors [...]
  * [2] Wicherts, Jelte M. "The weak spots in contemporary science (and how to fix them)." Animals 7.12 (2017): 90.
+
