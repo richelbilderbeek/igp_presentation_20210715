@@ -495,13 +495,13 @@ snvs$exp <- calc_exp_phenotype(snvs)
 
 
 ```{r eval=FALSE}
-knitr::kable(snvs)
+knitr::kable(snvs)[, -1]
 ```
 
 ***
 
 ```{r show=FALSE}
-knitr::kable(snvs)
+knitr::kable(snvs)[, -1]
 ```
 
 
